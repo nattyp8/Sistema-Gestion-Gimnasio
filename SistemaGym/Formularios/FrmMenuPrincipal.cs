@@ -14,5 +14,11 @@ namespace SistemaGym.Formularios
         {
             InitializeComponent();
         }
+
+        private void btnSocios_Click(object sender, EventArgs e)
+        {
+            FrmSocios ventanaSocios = new FrmSocios();
+            ventanaSocios.ShowDialog(); // Abre la ventana encima del menú
+        }
     }
 }

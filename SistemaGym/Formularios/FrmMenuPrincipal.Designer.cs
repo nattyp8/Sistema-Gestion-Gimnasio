@@ -28,18 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
+            btnSocios = new Button();
             SuspendLayout();
+            // 
+            // btnSocios
+            // 
+            btnSocios.Location = new Point(248, 57);
+            btnSocios.Name = "btnSocios";
+            btnSocios.Size = new Size(169, 49);
+            btnSocios.TabIndex = 0;
+            btnSocios.Text = "Gestion de socios";
+            btnSocios.UseVisualStyleBackColor = true;
+            btnSocios.Click += btnSocios_Click;
             // 
             // FrmMenuPrincipal
             // 
             AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnSocios);
             Name = "FrmMenuPrincipal";
             Text = "Sistema de Gestión de Gimnasio";
             ResumeLayout(false);
         }
 
         #endregion
+
+        private Button btnSocios;
     }
 }
