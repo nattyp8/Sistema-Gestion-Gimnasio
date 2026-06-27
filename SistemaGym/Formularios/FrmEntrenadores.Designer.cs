@@ -40,6 +40,7 @@
             lblTurno = new Label();
             btnGuardar = new Button();
             dgvEntrenadores = new DataGridView();
+            btnDesactivar = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvEntrenadores).BeginInit();
             SuspendLayout();
             // 
@@ -61,7 +62,7 @@
             // 
             // btnCerrar
             // 
-            btnCerrar.Location = new Point(195, 415);
+            btnCerrar.Location = new Point(158, 415);
             btnCerrar.Name = "btnCerrar";
             btnCerrar.Size = new Size(75, 23);
             btnCerrar.TabIndex = 2;
@@ -128,7 +129,7 @@
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(432, 415);
+            btnGuardar.Location = new Point(576, 415);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(75, 23);
             btnGuardar.TabIndex = 12;
@@ -144,11 +145,22 @@
             dgvEntrenadores.Size = new Size(438, 130);
             dgvEntrenadores.TabIndex = 13;
             // 
+            // btnDesactivar
+            // 
+            btnDesactivar.Location = new Point(373, 415);
+            btnDesactivar.Name = "btnDesactivar";
+            btnDesactivar.Size = new Size(75, 23);
+            btnDesactivar.TabIndex = 14;
+            btnDesactivar.Text = "Dar de baja";
+            btnDesactivar.UseVisualStyleBackColor = true;
+            btnDesactivar.Click += btnDesactivar_Click;
+            // 
             // FrmEntrenadores
             // 
             AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnDesactivar);
             Controls.Add(dgvEntrenadores);
             Controls.Add(btnGuardar);
             Controls.Add(lblTurno);
@@ -182,5 +194,6 @@
         private Label lblTurno;
         private Button btnGuardar;
         private DataGridView dgvEntrenadores;
+        private Button btnDesactivar;
     }
 }

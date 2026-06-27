@@ -31,6 +31,7 @@
             btnSocios = new Button();
             bntEntrenadores = new Button();
             btnMembresias = new Button();
+            btnClases = new Button();
             SuspendLayout();
             // 
             // btnSocios
@@ -45,7 +46,7 @@
             // 
             // bntEntrenadores
             // 
-            bntEntrenadores.Location = new Point(248, 160);
+            bntEntrenadores.Location = new Point(248, 138);
             bntEntrenadores.Name = "bntEntrenadores";
             bntEntrenadores.Size = new Size(169, 49);
             bntEntrenadores.TabIndex = 1;
@@ -55,7 +56,7 @@
             // 
             // btnMembresias
             // 
-            btnMembresias.Location = new Point(248, 281);
+            btnMembresias.Location = new Point(248, 214);
             btnMembresias.Name = "btnMembresias";
             btnMembresias.Size = new Size(169, 49);
             btnMembresias.TabIndex = 2;
@@ -63,11 +64,22 @@
             btnMembresias.UseVisualStyleBackColor = true;
             btnMembresias.Click += btnMembresias_Click;
             // 
+            // btnClases
+            // 
+            btnClases.Location = new Point(248, 288);
+            btnClases.Name = "btnClases";
+            btnClases.Size = new Size(169, 49);
+            btnClases.TabIndex = 3;
+            btnClases.Text = "Gestion de Clases";
+            btnClases.UseVisualStyleBackColor = true;
+            btnClases.Click += btnClases_Click;
+            // 
             // FrmMenuPrincipal
             // 
             AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnClases);
             Controls.Add(btnMembresias);
             Controls.Add(bntEntrenadores);
             Controls.Add(btnSocios);
@@ -81,5 +93,6 @@
         private Button btnSocios;
         private Button bntEntrenadores;
         private Button btnMembresias;
+        private Button btnClases;
     }
 }

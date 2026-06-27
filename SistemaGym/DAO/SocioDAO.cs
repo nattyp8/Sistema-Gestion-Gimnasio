@@ -65,5 +65,23 @@ namespace SistemaGym.DAO
             }
             return lista;
         }
+
+        // Método para dar de baja (Eliminación lógica)
+        public bool Desactivar(int idSocio)
+        {
+            bool actualizo = false;
+            using (SqlConnection conn = conexion.ObtenerConexion())
+            {
+                // En vez de un DELETE, hacemos un UPDATE del Estado a 0
+                string sql = "UPDATE Socios SET Estado = 0 WHERE IdSocio = @IdSocio";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@IdSocio", idSocio);
+
+                conn.Open();
+                int filasAfectadas = cmd.ExecuteNonQuery();
+                if (filasAfectadas > 0) actualizo = true;
+            }
+            return actualizo;
+        }
     }
 }

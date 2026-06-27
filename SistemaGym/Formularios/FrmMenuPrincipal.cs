@@ -32,5 +32,11 @@ namespace SistemaGym.Formularios
             FrmMembresias ventanaMembresias = new FrmMembresias();
             ventanaMembresias.ShowDialog();
         }
+
+        private void btnClases_Click(object sender, EventArgs e)
+        {
+            FrmClases ventanaClases = new FrmClases();
+            ventanaClases.ShowDialog();
+        }
     }
 }

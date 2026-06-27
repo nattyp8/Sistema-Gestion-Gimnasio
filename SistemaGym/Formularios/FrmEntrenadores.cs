@@ -101,5 +101,35 @@ namespace SistemaGym.Formularios
         {
             this.Close();
         }
+
+        private void btnDesactivar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvEntrenadores.CurrentRow == null)
+                {
+                    MessageBox.Show("Seleccione el entrenador que desea dar de baja.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                int idEntrenador = Convert.ToInt32(dgvEntrenadores.CurrentRow.Cells["IdEntrenador"].Value);
+                string nombre = dgvEntrenadores.CurrentRow.Cells["Nombre"].Value.ToString();
+
+                DialogResult resultado = MessageBox.Show($"¿Desea dar de baja al entrenador {nombre}? Ya no aparecerá disponible para nuevas clases.", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (resultado == DialogResult.Yes)
+                {
+                    if (entrenadorDAO.Desactivar(idEntrenador))
+                    {
+                        MessageBox.Show("Entrenador desactivado.", "Sistema Gym", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CargarGrilla(); // <-- ¡Aquí desaparece de la tabla!
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

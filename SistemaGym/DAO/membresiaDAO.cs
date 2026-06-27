@@ -59,5 +59,20 @@ namespace SistemaGym.DAO
             }
             return lista;
         }
+        public bool Desactivar(int idMembresia)
+        {
+            bool actualizo = false;
+            using (SqlConnection conn = conexion.ObtenerConexion())
+            {
+                string sql = "UPDATE Membresias SET Estado = 0 WHERE IdMembresia = @IdMembresia";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@IdMembresia", idMembresia);
+
+                conn.Open();
+                int filasAfectadas = cmd.ExecuteNonQuery();
+                if (filasAfectadas > 0) actualizo = true;
+            }
+            return actualizo;
+        }
     }
 }

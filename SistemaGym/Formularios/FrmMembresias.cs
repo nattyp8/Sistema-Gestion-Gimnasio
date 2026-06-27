@@ -104,5 +104,37 @@ namespace SistemaGym.Formularios
         {
             this.Close();
         }
+
+        private void btnDesactivar_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                if (dgvMembresias.CurrentRow == null)
+                {
+                    MessageBox.Show("Seleccione la membresía a desactivar.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                int idMembresia = Convert.ToInt32(dgvMembresias.CurrentRow.Cells["IdMembresia"].Value);
+                string nombre = dgvMembresias.CurrentRow.Cells["Nombre"].Value.ToString();
+
+                DialogResult resultado = MessageBox.Show($"¿Desea desactivar el plan {nombre}?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (resultado == DialogResult.Yes)
+                {
+                    if (membresiaDAO.Desactivar(idMembresia))
+                    {
+                        MessageBox.Show("Membresía desactivada.", "Sistema Gym", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CargarGrilla(); // <-- Desaparece visualmente
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
     }
 }

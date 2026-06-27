@@ -61,5 +61,21 @@ namespace SistemaGym.DAO
             }
             return lista;
         }
+
+        public bool Desactivar(int idEntrenador)
+        {
+            bool actualizo = false;
+            using (SqlConnection conn = conexion.ObtenerConexion())
+            {
+                string sql = "UPDATE Entrenadores SET Estado = 0 WHERE IdEntrenador = @IdEntrenador";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@IdEntrenador", idEntrenador);
+
+                conn.Open();
+                int filasAfectadas = cmd.ExecuteNonQuery();
+                if (filasAfectadas > 0) actualizo = true;
+            }
+            return actualizo;
+        }
     }
 }

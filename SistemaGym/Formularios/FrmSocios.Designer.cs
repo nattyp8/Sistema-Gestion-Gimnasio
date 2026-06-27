@@ -41,6 +41,7 @@
             txtCorreo = new TextBox();
             lblCorreo = new Label();
             btnCerrar = new Button();
+            btnDesactivar = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvSocios).BeginInit();
             SuspendLayout();
             // 
@@ -70,7 +71,7 @@
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(245, 396);
+            btnGuardar.Location = new Point(166, 396);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(75, 23);
             btnGuardar.TabIndex = 3;
@@ -144,7 +145,7 @@
             // 
             // btnCerrar
             // 
-            btnCerrar.Location = new Point(422, 396);
+            btnCerrar.Location = new Point(541, 396);
             btnCerrar.Name = "btnCerrar";
             btnCerrar.Size = new Size(75, 23);
             btnCerrar.TabIndex = 12;
@@ -152,11 +153,22 @@
             btnCerrar.UseVisualStyleBackColor = true;
             btnCerrar.Click += btnCerrar_Click_1;
             // 
+            // btnDesactivar
+            // 
+            btnDesactivar.Location = new Point(325, 396);
+            btnDesactivar.Name = "btnDesactivar";
+            btnDesactivar.Size = new Size(95, 23);
+            btnDesactivar.TabIndex = 13;
+            btnDesactivar.Text = "Desactivar";
+            btnDesactivar.UseVisualStyleBackColor = true;
+            btnDesactivar.Click += btnDesactivar_Click;
+            // 
             // FrmSocios
             // 
             AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnDesactivar);
             Controls.Add(btnCerrar);
             Controls.Add(txtCorreo);
             Controls.Add(lblCorreo);
@@ -192,5 +204,6 @@
         private TextBox txtCorreo;
         private Label lblCorreo;
         private Button btnCerrar;
+        private Button btnDesactivar;
     }
 }

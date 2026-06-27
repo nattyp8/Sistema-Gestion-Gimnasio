@@ -108,5 +108,43 @@ namespace SistemaGym.Formularios
             this.Close();
         }
 
+        private void btnDesactivar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Verificamos si el usuario seleccionó una fila de la tabla
+                if (dgvSocios.CurrentRow == null)
+                {
+                    MessageBox.Show("Por favor, seleccione el socio que desea dar de baja de la tabla.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Obtenemos el ID del socio de la fila seleccionada
+                int idSocio = Convert.ToInt32(dgvSocios.CurrentRow.Cells["IdSocio"].Value);
+                string nombreSocio = dgvSocios.CurrentRow.Cells["Nombre"].Value.ToString();
+
+                // Preguntamos para confirmar (¡Muy profesional!)
+                DialogResult resultado = MessageBox.Show($"¿Está seguro de que desea dar de baja al socio {nombreSocio}?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (resultado == DialogResult.Yes)
+                {
+                    bool exito = socioDAO.Desactivar(idSocio);
+
+                    if (exito)
+                    {
+                        MessageBox.Show("Socio desactivado con éxito.", "Sistema Gym", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CargarGrilla(); // Refrescamos la tabla para que desaparezca
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo desactivar al socio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al dar de baja: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

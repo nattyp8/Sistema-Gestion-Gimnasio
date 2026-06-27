@@ -37,6 +37,7 @@
             lblDuracion = new Label();
             txtPrecio = new TextBox();
             lblPrecio = new Label();
+            btnDesactivar = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvMembresias).BeginInit();
             SuspendLayout();
             // 
@@ -116,11 +117,22 @@
             lblPrecio.TabIndex = 7;
             lblPrecio.Text = "Precio";
             // 
+            // btnDesactivar
+            // 
+            btnDesactivar.Location = new Point(299, 396);
+            btnDesactivar.Name = "btnDesactivar";
+            btnDesactivar.Size = new Size(75, 23);
+            btnDesactivar.TabIndex = 9;
+            btnDesactivar.Text = "Dar de Baja";
+            btnDesactivar.UseVisualStyleBackColor = true;
+            btnDesactivar.Click += btnDesactivar_Click;
+            // 
             // FrmMembresias
             // 
             AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnDesactivar);
             Controls.Add(txtPrecio);
             Controls.Add(lblPrecio);
             Controls.Add(txtDuracion);
@@ -148,5 +160,6 @@
         private Label lblDuracion;
         private TextBox txtPrecio;
         private Label lblPrecio;
+        private Button btnDesactivar;
     }
 }
