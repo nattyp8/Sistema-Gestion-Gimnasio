@@ -38,5 +38,17 @@ namespace SistemaGym.Formularios
             FrmClases ventanaClases = new FrmClases();
             ventanaClases.ShowDialog();
         }
+
+        private void btnPagos_Click(object sender, EventArgs e)
+        {
+            FrmPagos ventanaPagos = new FrmPagos();
+            ventanaPagos.ShowDialog();
+        }
+
+        private void btnInscripcion_Click(object sender, EventArgs e)
+        {
+            FrmInscripciones ventanaInscripciones = new FrmInscripciones();
+            ventanaInscripciones.ShowDialog();
+        }
     }
 }

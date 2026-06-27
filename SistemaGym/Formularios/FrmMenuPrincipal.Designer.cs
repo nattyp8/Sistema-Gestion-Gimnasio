@@ -32,11 +32,13 @@
             bntEntrenadores = new Button();
             btnMembresias = new Button();
             btnClases = new Button();
+            btnPagos = new Button();
+            btnInscripcion = new Button();
             SuspendLayout();
             // 
             // btnSocios
             // 
-            btnSocios.Location = new Point(248, 57);
+            btnSocios.Location = new Point(136, 41);
             btnSocios.Name = "btnSocios";
             btnSocios.Size = new Size(169, 49);
             btnSocios.TabIndex = 0;
@@ -46,7 +48,7 @@
             // 
             // bntEntrenadores
             // 
-            bntEntrenadores.Location = new Point(248, 138);
+            bntEntrenadores.Location = new Point(136, 122);
             bntEntrenadores.Name = "bntEntrenadores";
             bntEntrenadores.Size = new Size(169, 49);
             bntEntrenadores.TabIndex = 1;
@@ -56,7 +58,7 @@
             // 
             // btnMembresias
             // 
-            btnMembresias.Location = new Point(248, 214);
+            btnMembresias.Location = new Point(136, 198);
             btnMembresias.Name = "btnMembresias";
             btnMembresias.Size = new Size(169, 49);
             btnMembresias.TabIndex = 2;
@@ -66,7 +68,7 @@
             // 
             // btnClases
             // 
-            btnClases.Location = new Point(248, 288);
+            btnClases.Location = new Point(136, 272);
             btnClases.Name = "btnClases";
             btnClases.Size = new Size(169, 49);
             btnClases.TabIndex = 3;
@@ -74,11 +76,33 @@
             btnClases.UseVisualStyleBackColor = true;
             btnClases.Click += btnClases_Click;
             // 
+            // btnPagos
+            // 
+            btnPagos.Location = new Point(433, 41);
+            btnPagos.Name = "btnPagos";
+            btnPagos.Size = new Size(169, 49);
+            btnPagos.TabIndex = 4;
+            btnPagos.Text = "Gestion de pagos";
+            btnPagos.UseVisualStyleBackColor = true;
+            btnPagos.Click += btnPagos_Click;
+            // 
+            // btnInscripcion
+            // 
+            btnInscripcion.Location = new Point(433, 122);
+            btnInscripcion.Name = "btnInscripcion";
+            btnInscripcion.Size = new Size(169, 49);
+            btnInscripcion.TabIndex = 5;
+            btnInscripcion.Text = "Gestion de inscripciones";
+            btnInscripcion.UseVisualStyleBackColor = true;
+            btnInscripcion.Click += btnInscripcion_Click;
+            // 
             // FrmMenuPrincipal
             // 
             AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnInscripcion);
+            Controls.Add(btnPagos);
             Controls.Add(btnClases);
             Controls.Add(btnMembresias);
             Controls.Add(bntEntrenadores);
@@ -94,5 +118,7 @@
         private Button bntEntrenadores;
         private Button btnMembresias;
         private Button btnClases;
+        private Button btnPagos;
+        private Button btnInscripcion;
     }
 }
