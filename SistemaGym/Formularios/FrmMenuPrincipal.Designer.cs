@@ -30,6 +30,7 @@
         {
             btnSocios = new Button();
             bntEntrenadores = new Button();
+            btnMembresias = new Button();
             SuspendLayout();
             // 
             // btnSocios
@@ -52,11 +53,22 @@
             bntEntrenadores.UseVisualStyleBackColor = true;
             bntEntrenadores.Click += bntEntrenadores_Click;
             // 
+            // btnMembresias
+            // 
+            btnMembresias.Location = new Point(248, 281);
+            btnMembresias.Name = "btnMembresias";
+            btnMembresias.Size = new Size(169, 49);
+            btnMembresias.TabIndex = 2;
+            btnMembresias.Text = "Gestion de Membresias";
+            btnMembresias.UseVisualStyleBackColor = true;
+            btnMembresias.Click += btnMembresias_Click;
+            // 
             // FrmMenuPrincipal
             // 
             AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnMembresias);
             Controls.Add(bntEntrenadores);
             Controls.Add(btnSocios);
             Name = "FrmMenuPrincipal";
@@ -68,5 +80,6 @@
 
         private Button btnSocios;
         private Button bntEntrenadores;
+        private Button btnMembresias;
     }
 }

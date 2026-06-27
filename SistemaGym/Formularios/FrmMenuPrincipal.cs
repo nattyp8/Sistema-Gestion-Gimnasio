@@ -26,5 +26,11 @@ namespace SistemaGym.Formularios
             FrmEntrenadores ventanaEntrenadores = new FrmEntrenadores();
             ventanaEntrenadores.ShowDialog();
         }
+
+        private void btnMembresias_Click(object sender, EventArgs e)
+        {
+            FrmMembresias ventanaMembresias = new FrmMembresias();
+            ventanaMembresias.ShowDialog();
+        }
     }
 }
