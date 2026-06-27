@@ -20,5 +20,11 @@ namespace SistemaGym.Formularios
             FrmSocios ventanaSocios = new FrmSocios();
             ventanaSocios.ShowDialog(); // Abre la ventana encima del menú
         }
+
+        private void bntEntrenadores_Click(object sender, EventArgs e)
+        {
+            FrmEntrenadores ventanaEntrenadores = new FrmEntrenadores();
+            ventanaEntrenadores.ShowDialog();
+        }
     }
 }

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             btnSocios = new Button();
+            bntEntrenadores = new Button();
             SuspendLayout();
             // 
             // btnSocios
@@ -41,11 +42,22 @@
             btnSocios.UseVisualStyleBackColor = true;
             btnSocios.Click += btnSocios_Click;
             // 
+            // bntEntrenadores
+            // 
+            bntEntrenadores.Location = new Point(248, 160);
+            bntEntrenadores.Name = "bntEntrenadores";
+            bntEntrenadores.Size = new Size(169, 49);
+            bntEntrenadores.TabIndex = 1;
+            bntEntrenadores.Text = "Gestion de entrenadores";
+            bntEntrenadores.UseVisualStyleBackColor = true;
+            bntEntrenadores.Click += bntEntrenadores_Click;
+            // 
             // FrmMenuPrincipal
             // 
             AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(bntEntrenadores);
             Controls.Add(btnSocios);
             Name = "FrmMenuPrincipal";
             Text = "Sistema de Gestión de Gimnasio";
@@ -55,5 +67,6 @@
         #endregion
 
         private Button btnSocios;
+        private Button bntEntrenadores;
     }
 }

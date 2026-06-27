@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Enum\" />
     <Folder Include="Recursos\" />
     <Folder Include="Utilidades\" />
   </ItemGroup>

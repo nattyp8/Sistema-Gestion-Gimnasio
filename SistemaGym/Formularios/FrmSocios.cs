@@ -23,28 +23,8 @@ namespace SistemaGym.Formularios
             CargarGrilla();
         }
 
-        // Método auxiliar para llenar el DataGridView y mantenerlo fresco
-        private void CargarGrilla()
-        {
-            try
-            {
-                List<Socio> lista = socioDAO.ListarSocios();
-                dgvSocios.DataSource = null; // Limpiamos
-                dgvSocios.DataSource = lista; // Asignamos la nueva lista
-
-                // Ponemos nombres más lindos a las cabeceras de la tabla
-                if (dgvSocios.Columns["IdSocio"] != null) dgvSocios.Columns["IdSocio"].HeaderText = "ID";
-                if (dgvSocios.Columns["FechaInscripcion"] != null) dgvSocios.Columns["FechaInscripcion"].HeaderText = "Fecha Registro";
-                if (dgvSocios.Columns["CI"] != null) dgvSocios.Columns["CI"].HeaderText = "Cédula";
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al cargar la lista de socios: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        // Botón Guardar / Registrar
-        private void btnGuardar_Click(object sender, EventArgs e)
+        // Botón Guardar / Registrar 
+        private void btnGuardar_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -91,6 +71,26 @@ namespace SistemaGym.Formularios
             }
         }
 
+        // Método auxiliar para llenar el DataGridView y mantenerlo fresco
+        private void CargarGrilla()
+        {
+            try
+            {
+                List<Socio> lista = socioDAO.ListarSocios();
+                dgvSocios.DataSource = null; // Limpiamos
+                dgvSocios.DataSource = lista; // Asignamos la nueva lista
+
+                // Ponemos nombres más lindos a las cabeceras de la tabla
+                if (dgvSocios.Columns["IdSocio"] != null) dgvSocios.Columns["IdSocio"].HeaderText = "ID";
+                if (dgvSocios.Columns["FechaInscripcion"] != null) dgvSocios.Columns["FechaInscripcion"].HeaderText = "Fecha Registro";
+                if (dgvSocios.Columns["CI"] != null) dgvSocios.Columns["CI"].HeaderText = "Cédula";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar la lista de socios: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         // Método para limpiar los cuadros de texto tras guardar
         private void LimpiarFormulario()
         {
@@ -103,14 +103,10 @@ namespace SistemaGym.Formularios
         }
 
         // Botón Cerrar
-        private void btnCerrar_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void btnCerrar_Click_1(object sender, EventArgs e)
         {
             this.Close();
         }
+
     }
 }
