@@ -34,6 +34,7 @@
             btnClases = new Button();
             btnPagos = new Button();
             btnInscripcion = new Button();
+            button1 = new Button();
             SuspendLayout();
             // 
             // btnSocios
@@ -96,11 +97,22 @@
             btnInscripcion.UseVisualStyleBackColor = true;
             btnInscripcion.Click += btnInscripcion_Click;
             // 
+            // button1
+            // 
+            button1.Location = new Point(433, 198);
+            button1.Name = "button1";
+            button1.Size = new Size(169, 49);
+            button1.TabIndex = 6;
+            button1.Text = "Acerca De";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // FrmMenuPrincipal
             // 
             AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(button1);
             Controls.Add(btnInscripcion);
             Controls.Add(btnPagos);
             Controls.Add(btnClases);
@@ -120,5 +132,6 @@
         private Button btnClases;
         private Button btnPagos;
         private Button btnInscripcion;
+        private Button button1;
     }
 }

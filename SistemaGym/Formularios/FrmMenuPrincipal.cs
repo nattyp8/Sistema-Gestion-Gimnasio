@@ -50,5 +50,11 @@ namespace SistemaGym.Formularios
             FrmInscripciones ventanaInscripciones = new FrmInscripciones();
             ventanaInscripciones.ShowDialog();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FrmAcercaDe ventanaAcercaDe = new FrmAcercaDe();
+            ventanaAcercaDe.ShowDialog();
+        }
     }
 }
