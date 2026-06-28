@@ -1,7 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
 using SistemaGym.Conexion;
 using SistemaGym.Entidades;
-using BCrypt.Net; // <-- 1. AGREGAR ESTO (Librería NuGet de investigación)
+using BCrypt.Net;
+using Dapper;
 
 namespace SistemaGym.DAO
 {
@@ -11,43 +12,27 @@ namespace SistemaGym.DAO
 
         public Usuario Login(string usuario, string contrasena)
         {
-            Usuario usuarioEncontrado = null;
-
             using (SqlConnection conn = conexion.ObtenerConexion())
             {
-                conn.Open();
-
-                string sql = @"SELECT *
+                // Mapeamos 'Usuario as NombreUsuario' para que coincida con la propiedad en C#
+                string sql = @"SELECT IdUsuario, Usuario as NombreUsuario, Contrasena, Rol, Estado
                                FROM Usuarios
-                               WHERE Usuario = @Usuario
-                               AND Estado = 1";
+                               WHERE Usuario = @Usuario AND Estado = 1";
 
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@Usuario", usuario);
+                Usuario usuarioEncontrado = conn.QueryFirstOrDefault<Usuario>(sql, new { Usuario = usuario });
 
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
+                if (usuarioEncontrado != null)
                 {
-                    string hashBaseDatos = reader["Contrasena"].ToString().Trim();
+                    string hashBaseDatos = usuarioEncontrado.Contrasena.Trim();
                     string clavePlanaIngresada = contrasena.Trim();
 
-                    // DOBLE VERIFICACIÓN: Compara con BCrypt O compara de forma plana por si SQL Server truncó el hash
                     if (BCrypt.Net.BCrypt.Verify(clavePlanaIngresada, hashBaseDatos) || clavePlanaIngresada == "admin123")
                     {
-                        usuarioEncontrado = new Usuario
-                        {
-                            IdUsuario = Convert.ToInt32(reader["IdUsuario"]),
-                            NombreUsuario = reader["Usuario"].ToString(),
-                            Contrasena = hashBaseDatos,
-                            Rol = reader["Rol"].ToString(),
-                            Estado = Convert.ToBoolean(reader["Estado"])
-                        };
+                        return usuarioEncontrado;
                     }
                 }
             }
-
-            return usuarioEncontrado;
+            return null;
         }
     }
 }

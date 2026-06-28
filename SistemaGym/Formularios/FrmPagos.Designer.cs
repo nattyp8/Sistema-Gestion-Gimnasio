@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPagos));
             lblMonto = new Label();
             txtMonto = new TextBox();
             lblMembresia = new Label();
@@ -145,6 +146,7 @@
             Controls.Add(lblMembresia);
             Controls.Add(txtMonto);
             Controls.Add(lblMonto);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FrmPagos";
             Text = "FrmPagos";
             ((System.ComponentModel.ISupportInitialize)dgvPagos).EndInit();

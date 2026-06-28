@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmClases));
             lblNombreClase = new Label();
             txtNombreClase = new TextBox();
             txtCupo = new TextBox();
@@ -183,6 +184,7 @@
             Controls.Add(lblCupo);
             Controls.Add(txtNombreClase);
             Controls.Add(lblNombreClase);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FrmClases";
             Text = "FrmClases";
             ((System.ComponentModel.ISupportInitialize)dgvClases).EndInit();

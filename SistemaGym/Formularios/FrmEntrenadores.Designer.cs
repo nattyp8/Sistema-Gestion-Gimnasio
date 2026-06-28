@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmEntrenadores));
             lblNombre = new Label();
             txtNombre = new TextBox();
             btnCerrar = new Button();
@@ -173,6 +174,7 @@
             Controls.Add(btnCerrar);
             Controls.Add(txtNombre);
             Controls.Add(lblNombre);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FrmEntrenadores";
             Text = "Entrenadores";
             ((System.ComponentModel.ISupportInitialize)dgvEntrenadores).EndInit();

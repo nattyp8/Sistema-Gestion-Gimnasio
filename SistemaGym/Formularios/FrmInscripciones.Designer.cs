@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmInscripciones));
             btnCerrar = new Button();
             btnDesactivar = new Button();
             btnGuardar = new Button();
@@ -124,6 +125,7 @@
             Controls.Add(cmbClase);
             Controls.Add(lblSocio);
             Controls.Add(lblClase);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FrmInscripciones";
             Text = "FrmInscripciones";
             ((System.ComponentModel.ISupportInitialize)dgvInscripciones).EndInit();

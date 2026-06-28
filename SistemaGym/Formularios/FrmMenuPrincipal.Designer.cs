@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMenuPrincipal));
             btnSocios = new Button();
             bntEntrenadores = new Button();
             btnMembresias = new Button();
@@ -119,6 +120,7 @@
             Controls.Add(btnMembresias);
             Controls.Add(bntEntrenadores);
             Controls.Add(btnSocios);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FrmMenuPrincipal";
             Text = "Sistema de Gestión de Gimnasio";
             ResumeLayout(false);

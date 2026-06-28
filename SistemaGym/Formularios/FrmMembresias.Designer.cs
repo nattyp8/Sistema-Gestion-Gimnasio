@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMembresias));
             dgvMembresias = new DataGridView();
             lblNombre = new Label();
             txtNombre = new TextBox();
@@ -142,6 +143,7 @@
             Controls.Add(txtNombre);
             Controls.Add(lblNombre);
             Controls.Add(dgvMembresias);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FrmMembresias";
             Text = "FrmMembresias";
             ((System.ComponentModel.ISupportInitialize)dgvMembresias).EndInit();
