@@ -30,7 +30,8 @@ namespace SistemaGym.DAO
                 string sql = @"SELECT c.IdClase, c.NombreClase, c.Cupo, c.Horario, c.DiaSemana, c.IdEntrenador, e.Nombre AS NombreEntrenador 
                                FROM Clases c 
                                INNER JOIN Entrenadores e ON c.IdEntrenador = e.IdEntrenador 
-                               WHERE c.Estado = 1";
+                               WHERE c.Estado = 1
+                               ORDER BY IdClase DESC";
 
                 return conn.Query<Clase>(sql).ToList();
             }

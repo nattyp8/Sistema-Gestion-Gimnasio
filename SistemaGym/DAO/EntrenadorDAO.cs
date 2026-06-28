@@ -27,7 +27,7 @@ namespace SistemaGym.DAO
         {
             using (SqlConnection conn = conexion.ObtenerConexion())
             {
-                string sql = "SELECT IdEntrenador, Nombre, Especialidad, Turno, Telefono, Estado FROM Entrenadores WHERE Estado = 1";
+                string sql = "SELECT IdEntrenador, Nombre, Especialidad, Turno, Telefono, Estado FROM Entrenadores WHERE Estado = 1 ORDER BY IdEntrenador DESC";
                 return conn.Query<Entrenador>(sql).ToList();
             }
         }

@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using SistemaGym.Conexion;
 using SistemaGym.Entidades;
-using Dapper;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Windows.Controls;
 
 namespace SistemaGym.DAO
 {
@@ -70,7 +71,8 @@ namespace SistemaGym.DAO
                                FROM Pagos p
                                INNER JOIN Socios s ON p.IdSocio = s.IdSocio
                                INNER JOIN Membresias m ON p.IdMembresia = m.IdMembresia
-                               WHERE p.Estado = 1";
+                               WHERE p.Estado = 1
+                               ORDER BY IdPago DESC";
 
                 return conn.Query<Pago>(sql).ToList();
             }

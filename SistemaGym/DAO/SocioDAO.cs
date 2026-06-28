@@ -33,7 +33,8 @@ namespace SistemaGym.DAO
                 // Alias en Cedula, Correo y FechaRegistro para que Dapper los asigne automáticamente
                 string sql = @"SELECT IdSocio, Nombre, Apellido, Cedula as CI, Telefono, Correo as Email, FechaRegistro as FechaInscripcion, Estado 
                                FROM Socios 
-                               WHERE Estado = 1";
+                               WHERE Estado = 1
+                                ORDER BY IdSocio DESC";
 
                 return conn.Query<Socio>(sql).ToList();
             }
