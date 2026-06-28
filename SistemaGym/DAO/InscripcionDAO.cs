@@ -68,5 +68,21 @@ namespace SistemaGym.DAO
                 return conn.Query<Inscripcion>(sql).ToList();
             }
         }
+
+        // Verifica si el socio ya se encuentra registrado y activo en esta clase específica
+        public bool ExisteInscripcionDuplicada(int idSocio, int idClase)
+        {
+            using (SqlConnection conn = conexion.ObtenerConexion())
+            {
+                string sql = @"SELECT COUNT(1) 
+                       FROM Inscripciones 
+                       WHERE IdSocio = @IdSocio 
+                       AND IdClase = @IdClase 
+                       AND Estado = 1"; // Solo cuenta las inscripciones activas
+
+                int cantidad = conn.ExecuteScalar<int>(sql, new { IdSocio = idSocio, IdClase = idClase });
+                return cantidad > 0; // Retorna true si ya está anotado
+            }
+        }
     }
 }

@@ -98,5 +98,22 @@ namespace SistemaGym.DAO
                 return pagosRecientes > 0; // Retorna true si ya pagó hace menos de los días que dura el plan
             }
         }
+
+        // Verifica si el socio posee un pago activo dentro de los últimos 30 días
+        public bool TieneMembresiaVigente(int idSocio)
+        {
+            using (SqlConnection conn = conexion.ObtenerConexion())
+            {
+                // Contamos si existen registros de pago activos para este ID en los últimos 30 días
+                string sql = @"SELECT COUNT(1) 
+                       FROM Pagos 
+                       WHERE IdSocio = @IdSocio 
+                       AND Estado = 1 
+                       AND DATEDIFF(day, FechaPago, GETDATE()) < 30";
+
+                int pagosActivos = conn.ExecuteScalar<int>(sql, new { IdSocio = idSocio });
+                return pagosActivos > 0; // Retorna true si tiene un pago vigente, false si venció o no pagó
+            }
+        }
     }
 }

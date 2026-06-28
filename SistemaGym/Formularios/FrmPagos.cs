@@ -49,6 +49,9 @@ namespace SistemaGym.Formularios
             {
                 MessageBox.Show("Error al cargar datos iniciales: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            // Esto llena el combo automáticamente usando tu Enum de C#
+            cmbMetodoPago.DataSource = System.Enum.GetValues(typeof(SistemaGym.Enums.MetodoPago));
         }
 
         // Evento cuando cambian la Membresía seleccionada (Autocompleta el monto)
@@ -125,6 +128,8 @@ namespace SistemaGym.Formularios
                     IdMembresia = idMembresia,
                     Monto = montoCobrado,
                     FechaPago = DateTime.Now,
+                    MetodoPago = cmbMetodoPago.SelectedItem.ToString(), // <-- Guarda el Enum seleccionado
+                    Observacion = txtObservacion.Text.Trim(),           // <-- Guarda lo que escribas en el TextBox
                     Estado = true
                 };
 

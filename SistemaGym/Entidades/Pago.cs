@@ -14,5 +14,7 @@ namespace SistemaGym.Entidades
         public decimal Monto { get; set; }
         public DateTime FechaPago { get; set; }
         public bool Estado { get; set; }
+        public string MetodoPago { get; set; }
+        public string Observacion { get; set; }
     }
 }

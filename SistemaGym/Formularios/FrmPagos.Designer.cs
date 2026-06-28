@@ -39,13 +39,17 @@
             btnGuardar = new Button();
             btnAnular = new Button();
             btnCerrar = new Button();
+            cmbMetodoPago = new ComboBox();
+            label1 = new Label();
+            label2 = new Label();
+            txtObservacion = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvPagos).BeginInit();
             SuspendLayout();
             // 
             // lblMonto
             // 
             lblMonto.AutoSize = true;
-            lblMonto.Location = new Point(243, 184);
+            lblMonto.Location = new Point(180, 184);
             lblMonto.Name = "lblMonto";
             lblMonto.Size = new Size(54, 19);
             lblMonto.TabIndex = 0;
@@ -53,7 +57,7 @@
             // 
             // txtMonto
             // 
-            txtMonto.Location = new Point(355, 181);
+            txtMonto.Location = new Point(292, 181);
             txtMonto.Name = "txtMonto";
             txtMonto.Size = new Size(100, 26);
             txtMonto.TabIndex = 1;
@@ -61,7 +65,7 @@
             // lblMembresia
             // 
             lblMembresia.AutoSize = true;
-            lblMembresia.Location = new Point(243, 237);
+            lblMembresia.Location = new Point(180, 237);
             lblMembresia.Name = "lblMembresia";
             lblMembresia.Size = new Size(77, 19);
             lblMembresia.TabIndex = 2;
@@ -70,7 +74,7 @@
             // lblSocio
             // 
             lblSocio.AutoSize = true;
-            lblSocio.Location = new Point(243, 289);
+            lblSocio.Location = new Point(180, 289);
             lblSocio.Name = "lblSocio";
             lblSocio.Size = new Size(41, 19);
             lblSocio.TabIndex = 3;
@@ -79,7 +83,7 @@
             // cmbMembresia
             // 
             cmbMembresia.FormattingEnabled = true;
-            cmbMembresia.Location = new Point(355, 229);
+            cmbMembresia.Location = new Point(292, 229);
             cmbMembresia.Name = "cmbMembresia";
             cmbMembresia.Size = new Size(121, 27);
             cmbMembresia.TabIndex = 4;
@@ -88,7 +92,7 @@
             // cmbSocio
             // 
             cmbSocio.FormattingEnabled = true;
-            cmbSocio.Location = new Point(355, 281);
+            cmbSocio.Location = new Point(292, 281);
             cmbSocio.Name = "cmbSocio";
             cmbSocio.Size = new Size(121, 27);
             cmbSocio.TabIndex = 5;
@@ -131,11 +135,48 @@
             btnCerrar.UseVisualStyleBackColor = true;
             btnCerrar.Click += btnCerrar_Click;
             // 
+            // cmbMetodoPago
+            // 
+            cmbMetodoPago.FormattingEnabled = true;
+            cmbMetodoPago.Location = new Point(570, 229);
+            cmbMetodoPago.Name = "cmbMetodoPago";
+            cmbMetodoPago.Size = new Size(121, 27);
+            cmbMetodoPago.TabIndex = 11;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(449, 232);
+            label1.Name = "label1";
+            label1.Size = new Size(112, 19);
+            label1.TabIndex = 10;
+            label1.Text = "Metodo de Pago";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(449, 289);
+            label2.Name = "label2";
+            label2.Size = new Size(89, 19);
+            label2.TabIndex = 12;
+            label2.Text = "observacion: ";
+            // 
+            // txtObservacion
+            // 
+            txtObservacion.Location = new Point(570, 282);
+            txtObservacion.Name = "txtObservacion";
+            txtObservacion.Size = new Size(121, 26);
+            txtObservacion.TabIndex = 13;
+            // 
             // FrmPagos
             // 
             AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(txtObservacion);
+            Controls.Add(label2);
+            Controls.Add(cmbMetodoPago);
+            Controls.Add(label1);
             Controls.Add(btnCerrar);
             Controls.Add(btnAnular);
             Controls.Add(btnGuardar);
@@ -166,5 +207,9 @@
         private Button btnGuardar;
         private Button btnAnular;
         private Button btnCerrar;
+        private ComboBox cmbMetodoPago;
+        private Label label1;
+        private Label label2;
+        private TextBox txtObservacion;
     }
 }

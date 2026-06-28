@@ -93,7 +93,27 @@ namespace SistemaGym.Formularios
                 int idSocioElegido = listaSocios[cmbSocio.SelectedIndex].IdSocio;
                 int idClaseElegida = listaClases[cmbClase.SelectedIndex].IdClase;
 
-                // 3. CREAR EL OBJETO INSCRIPCIÓN
+
+                // 🔐 CANDADO 1: Validación de Socio Al Día (Membresía Vigente)
+                PagoDAO pagoDAO = new PagoDAO();
+                if (!pagoDAO.TieneMembresiaVigente(idSocioElegido))
+                {
+                    MessageBox.Show("¡Inscripción Rechazada!\n\nEl socio seleccionado no cuenta con una membresía activa o vigente en el sistema.\n\nPor favor, derive al cliente al módulo de Pagos para regularizar su situación antes de reservar un cupo.",
+                                    "Control de Acceso - Socio Moroso", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return; // Corta el flujo
+                }
+
+
+                // 🔐 ¡NUEVO CANDADO 2!: Validación de Inscripción Duplicada (Evita repetir clase)
+                if (inscripcionDAO.ExisteInscripcionDuplicada(idSocioElegido, idClaseElegida))
+                {
+                    MessageBox.Show("¡Registro Duplicado!\n\nEste socio ya se encuentra inscrito activamente en la clase seleccionada.",
+                                    "Validación de Inscripción", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Corta el flujo: no crea el objeto, no resta cupo ni inserta nada
+                }
+
+
+                // 3. CREAR EL OBJETO INSCRIPCIÓN (Si pasó ambos candados, el código continúa aquí)
                 Inscripcion nuevaInscripcion = new Inscripcion
                 {
                     IdSocio = idSocioElegido,
