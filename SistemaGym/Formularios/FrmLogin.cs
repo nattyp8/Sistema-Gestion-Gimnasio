@@ -19,6 +19,8 @@ namespace SistemaGym.Formularios
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
+           
+
             try
             {
                 if (txtUsuario.Text.Trim() == "")

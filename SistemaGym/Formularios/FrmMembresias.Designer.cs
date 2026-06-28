@@ -44,7 +44,7 @@
             // dgvMembresias
             // 
             dgvMembresias.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvMembresias.Location = new Point(158, 12);
+            dgvMembresias.Location = new Point(159, -1);
             dgvMembresias.Name = "dgvMembresias";
             dgvMembresias.Size = new Size(426, 150);
             dgvMembresias.TabIndex = 0;
