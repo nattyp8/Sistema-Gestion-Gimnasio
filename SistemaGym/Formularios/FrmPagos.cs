@@ -95,7 +95,7 @@ namespace SistemaGym.Formularios
                     return;
                 }
 
-                // 2. VALIDACIÓN: Regra de negocio (Monto estrictamente mayor a 0 y que no sea texto)
+                // 2. VALIDACIÓN: Regla de negocio (Monto estrictamente mayor a 0 y que no sea texto)
                 if (!decimal.TryParse(txtMonto.Text.Trim(), out decimal montoCobrado) || montoCobrado <= 0)
                 {
                     MessageBox.Show("El monto a cobrar debe ser un número entero o decimal estrictamente mayor a 0.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -106,7 +106,19 @@ namespace SistemaGym.Formularios
                 int idSocio = listaSocios[cmbSocio.SelectedIndex].IdSocio;
                 int idMembresia = listaMembresias[cmbMembresia.SelectedIndex].IdMembresia;
 
-                // 4. CREAR OBJETO PAGO
+
+                // 🔐 ¡NUEVO CANDADO DE SEGURIDAD! (Validación de Cobro Duplicado)
+                // Comprobamos en la base de datos si ya existe un período activo para este plan
+                if (pagoDAO.ExistePagoActivo(idSocio, idMembresia))
+                {
+                    MessageBox.Show("¡Alerta de Facturación! Este socio ya cuenta con un pago activo y vigente para este plan.\n\n" +
+                                    "No se puede generar un cobro duplicado hasta que venza el período actual.",
+                                    "Cobro Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Corta la ejecución de inmediato y no registra nada
+                }
+
+
+                // 4. CREAR OBJETO PAGO (Si pasó el candado de arriba, el código continúa aquí)
                 Pago nuevoPago = new Pago
                 {
                     IdSocio = idSocio,

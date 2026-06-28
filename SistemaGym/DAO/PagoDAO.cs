@@ -75,5 +75,28 @@ namespace SistemaGym.DAO
                 return conn.Query<Pago>(sql).ToList();
             }
         }
+
+        // Método para verificar si el socio ya pagó este plan recientemente
+        public bool ExistePagoActivo(int idSocio, int idMembresia)
+        {
+            using (SqlConnection conn = conexion.ObtenerConexion())
+            {
+                // Traemos la duración en días de esa membresía para saber cuánto debe durar
+                string sqlDuracion = "SELECT DuracionDias FROM Membresias WHERE IdMembresia = @IdMembresia";
+                int diasDuracion = conn.ExecuteScalar<int>(sqlDuracion, new { IdMembresia = idMembresia });
+
+                // Buscamos si hay algún pago de este socio para este plan en ese rango de días
+                string sqlCheck = @"SELECT COUNT(1) 
+                            FROM Pagos 
+                            WHERE IdSocio = @IdSocio 
+                            AND IdMembresia = @IdMembresia 
+                            AND Estado = 1
+                            AND DATEDIFF(day, FechaPago, GETDATE()) < @Dias";
+
+                int pagosRecientes = conn.ExecuteScalar<int>(sqlCheck, new { IdSocio = idSocio, IdMembresia = idMembresia, Dias = diasDuracion });
+
+                return pagosRecientes > 0; // Retorna true si ya pagó hace menos de los días que dura el plan
+            }
+        }
     }
 }
