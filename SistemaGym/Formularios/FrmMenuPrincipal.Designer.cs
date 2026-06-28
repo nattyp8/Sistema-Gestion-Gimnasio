@@ -36,6 +36,7 @@
             btnPagos = new Button();
             btnInscripcion = new Button();
             button1 = new Button();
+            btnReportes = new Button();
             SuspendLayout();
             // 
             // btnSocios
@@ -108,11 +109,22 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // btnReportes
+            // 
+            btnReportes.Location = new Point(433, 272);
+            btnReportes.Name = "btnReportes";
+            btnReportes.Size = new Size(169, 49);
+            btnReportes.TabIndex = 7;
+            btnReportes.Text = "Reportes";
+            btnReportes.UseVisualStyleBackColor = true;
+            btnReportes.Click += btnReportes_Click;
+            // 
             // FrmMenuPrincipal
             // 
             AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnReportes);
             Controls.Add(button1);
             Controls.Add(btnInscripcion);
             Controls.Add(btnPagos);
@@ -135,5 +147,6 @@
         private Button btnPagos;
         private Button btnInscripcion;
         private Button button1;
+        private Button btnReportes;
     }
 }

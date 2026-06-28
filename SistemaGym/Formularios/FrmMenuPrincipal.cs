@@ -56,5 +56,11 @@ namespace SistemaGym.Formularios
             FrmAcercaDe ventanaAcercaDe = new FrmAcercaDe();
             ventanaAcercaDe.ShowDialog();
         }
+
+        private void btnReportes_Click(object sender, EventArgs e)
+        {
+            FrmReportes ventanaReportes = new FrmReportes();
+            ventanaReportes.ShowDialog();
+        }
     }
 }

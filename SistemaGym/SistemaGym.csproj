@@ -10,6 +10,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Formularios\Form1.cs" />
+    <Compile Remove="Formularios\Form1.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Formularios\Form1.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="gym-icon_30328.ico" />
   </ItemGroup>
 
