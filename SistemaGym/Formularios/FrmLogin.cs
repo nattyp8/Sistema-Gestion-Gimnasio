@@ -1,12 +1,13 @@
-﻿using System;
+﻿using SistemaGym.DAO;
+using SistemaGym.Entidades;
+using SistemaGym.Utilidades;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using SistemaGym.DAO;
-using SistemaGym.Entidades;
 
 namespace SistemaGym.Formularios
 {
@@ -25,14 +26,14 @@ namespace SistemaGym.Formularios
             {
                 if (txtUsuario.Text.Trim() == "")
                 {
-                    MessageBox.Show("Ingrese el usuario.");
+                    Mensajes.Validacion("Ingrese el usuario.");
                     txtUsuario.Focus();
                     return;
                 }
 
                 if (txtContrasena.Text.Trim() == "")
                 {
-                    MessageBox.Show("Ingrese la contraseña.");
+                    Mensajes.Validacion("Ingrese la contraseña.");
                     txtContrasena.Focus();
                     return;
                 }
@@ -45,7 +46,7 @@ namespace SistemaGym.Formularios
 
                 if (usuario != null)
                 {
-                    MessageBox.Show("Bienvenido " + usuario.NombreUsuario);
+                    Mensajes.Exito("Bienvenido " + usuario.NombreUsuario);
 
                     FrmMenuPrincipal menu = new FrmMenuPrincipal();
 
@@ -55,12 +56,12 @@ namespace SistemaGym.Formularios
                 }
                 else
                 {
-                    MessageBox.Show("Usuario o contraseña incorrectos.");
+                    Mensajes.Validacion("Usuario o contraseña incorrectos.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Mensajes.Error(ex, "iniciar sesión");
             }
         }
 

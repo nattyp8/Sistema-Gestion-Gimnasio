@@ -1,8 +1,9 @@
-﻿using System;
+﻿using SistemaGym.DAO;
+using SistemaGym.Entidades;
+using SistemaGym.Enums;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using SistemaGym.DAO;
-using SistemaGym.Entidades;
 
 namespace SistemaGym.Formularios
 {
@@ -52,12 +53,6 @@ namespace SistemaGym.Formularios
 
             // Esto llena el combo automáticamente usando tu Enum de C#
             cmbMetodoPago.DataSource = System.Enum.GetValues(typeof(SistemaGym.Enums.MetodoPago));
-        }
-
-        // Evento cuando cambian la Membresía seleccionada (Autocompleta el monto)
-        private void cmbMembresia_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
         }
 
         // Cargar la tabla de Pagos
@@ -128,8 +123,8 @@ namespace SistemaGym.Formularios
                     IdMembresia = idMembresia,
                     Monto = montoCobrado,
                     FechaPago = DateTime.Now,
-                    MetodoPago = cmbMetodoPago.SelectedItem.ToString(), // <-- Guarda el Enum seleccionado
-                    Observacion = txtObservacion.Text.Trim(),           // <-- Guarda lo que escribas en el TextBox
+                    MetodoPago = (MetodoPago)cmbMetodoPago.SelectedItem, 
+                    Observacion = txtObservacion.Text.Trim(),           
                     Estado = true
                 };
 
@@ -213,6 +208,42 @@ namespace SistemaGym.Formularios
             {
                 decimal precioSugerido = listaMembresias[cmbMembresia.SelectedIndex].Precio;
                 txtMonto.Text = precioSugerido.ToString("0"); // Rellena automáticamente
+            }
+        }
+
+        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string textoBusqueda = txtBuscar.Text.Trim();
+
+                // Si el buscador está vacío, cargamos la grilla completa como antes
+                if (string.IsNullOrEmpty(textoBusqueda))
+                {
+                    CargarGrilla();
+                }
+                else
+                {
+                    // Si hay texto, llamamos al nuevo método de búsqueda
+                    List<Pago> listaFiltrada = pagoDAO.BuscarPagosPorSocio(textoBusqueda);
+                    dgvPagos.DataSource = null;
+                    dgvPagos.DataSource = listaFiltrada;
+
+                    // Reutilizamos el formateo que ya tenías en CargarGrilla
+                    if (dgvPagos.Columns["IdPago"] != null) dgvPagos.Columns["IdPago"].HeaderText = "Nro Recibo";
+                    if (dgvPagos.Columns["NombreSocio"] != null) dgvPagos.Columns["NombreSocio"].HeaderText = "Socio";
+                    if (dgvPagos.Columns["NombreMembresia"] != null) dgvPagos.Columns["NombreMembresia"].HeaderText = "Membresía Plan";
+                    if (dgvPagos.Columns["Monto"] != null) dgvPagos.Columns["Monto"].DefaultCellStyle.Format = "N0";
+                    if (dgvPagos.Columns["FechaPago"] != null) dgvPagos.Columns["FechaPago"].HeaderText = "Fecha Cobro";
+                    if (dgvPagos.Columns["IdSocio"] != null) dgvPagos.Columns["IdSocio"].Visible = false;
+                    if (dgvPagos.Columns["IdMembresia"] != null) dgvPagos.Columns["IdMembresia"].Visible = false;
+                    if (dgvPagos.Columns["Estado"] != null) dgvPagos.Columns["Estado"].Visible = false;
+                    if (dgvPagos.Columns["MetodoPago"] != null) dgvPagos.Columns["MetodoPago"].HeaderText = "Forma de Pago";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al buscar: " + ex.Message);
             }
         }
     }

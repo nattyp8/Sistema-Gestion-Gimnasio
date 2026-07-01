@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SistemaGym.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,7 +15,7 @@ namespace SistemaGym.Entidades
         public decimal Monto { get; set; }
         public DateTime FechaPago { get; set; }
         public bool Estado { get; set; }
-        public string MetodoPago { get; set; }
+        public MetodoPago MetodoPago { get; set; }
         public string Observacion { get; set; }
     }
 }

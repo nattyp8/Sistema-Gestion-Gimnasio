@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using SistemaGym.DAO;
+﻿using SistemaGym.DAO;
 using SistemaGym.Entidades;
 using SistemaGym.Enums;
+using SistemaGym.Utilidades;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace SistemaGym.Formularios
 {
@@ -51,31 +52,44 @@ namespace SistemaGym.Formularios
         {
             try
             {
-                // VALIDACIONES OBLIGATORIAS
-                if (string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtEspecialidad.Text))
+                // 1. VALIDACIONES OBLIGATORIAS
+                if (string.IsNullOrWhiteSpace(txtNombre.Text) ||
+                    string.IsNullOrWhiteSpace(txtEspecialidad.Text) ||
+                    string.IsNullOrWhiteSpace(txtCedula.Text))
                 {
-                    MessageBox.Show("El Nombre y la Especialidad son obligatorios.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Mensajes.Validacion("El Nombre, la Especialidad y la Cédula son obligatorios.");
                     return;
                 }
 
-                // CREAR OBJETO ENTRENADOR
+                string cedulaIngresada = txtCedula.Text.Trim();
+
+                // 🔐 2. EL CANDADO: Usando tu método del DAO
+                if (entrenadorDAO.ExisteCedulaEntrenador(cedulaIngresada))
+                {
+                    Mensajes.Validacion("Ya existe un entrenador registrado con este número de Cédula.");
+                    return;
+                }
+
+                // 3. CREAR OBJETO ENTRENADOR 
+                // Nota: Asegúrate de que en tu Entidad 'Entrenador.cs' la propiedad se llame exacto 'cedula' (con c minúscula)
                 Entrenador nuevoEntrenador = new Entrenador
                 {
                     Nombre = txtNombre.Text.Trim(),
                     Especialidad = txtEspecialidad.Text.Trim(),
-                    Turno = cmbTurno.SelectedItem.ToString(), // Guardamos la opción elegida del ComboBox
+                    Turno = (Turno)cmbTurno.SelectedItem,
                     Telefono = txtTelefono.Text.Trim(),
+                    Cedula = cedulaIngresada, // <-- ¡C minúscula aquí para que mapee idéntico con tu BD!
                     Estado = true
                 };
 
-                // ENVIAR AL DAO
+                // 4. ENVIAR AL DAO
                 bool exito = entrenadorDAO.Registrar(nuevoEntrenador);
 
                 if (exito)
                 {
-                    MessageBox.Show("¡Entrenador registrado con éxito!", "Sistema Gym", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Mensajes.Exito("¡Entrenador registrado con éxito!");
                     LimpiarFormulario();
-                    CargarGrilla(); // Refrescar la tabla
+                    CargarGrilla();
                 }
                 else
                 {
@@ -115,14 +129,14 @@ namespace SistemaGym.Formularios
                 int idEntrenador = Convert.ToInt32(dgvEntrenadores.CurrentRow.Cells["IdEntrenador"].Value);
                 string nombre = dgvEntrenadores.CurrentRow.Cells["Nombre"].Value.ToString();
 
-                DialogResult resultado = MessageBox.Show($"¿Desea dar de baja al entrenador {nombre}? Ya no aparecerá disponible para nuevas clases.", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult resultado = Mensajes.Confirmar($"¿Desea dar de baja al entrenador {nombre}?");
 
                 if (resultado == DialogResult.Yes)
                 {
                     if (entrenadorDAO.Desactivar(idEntrenador))
                     {
-                        MessageBox.Show("Entrenador desactivado.", "Sistema Gym", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        CargarGrilla(); // <-- ¡Aquí desaparece de la tabla!
+                        Mensajes.Exito("Entrenador desactivado.");
+                        CargarGrilla();
                     }
                 }
             }

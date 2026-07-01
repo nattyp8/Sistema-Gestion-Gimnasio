@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using SistemaGym.DAO;
 using SistemaGym.Entidades;
+using SistemaGym.Utilidades;
 
 namespace SistemaGym.Formularios
 {
@@ -40,7 +41,7 @@ namespace SistemaGym.Formularios
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar los entrenadores en el combo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Mensajes.Error(ex, "Error al cargar los entrenadores en el combo");
             }
         }
 
@@ -65,7 +66,7 @@ namespace SistemaGym.Formularios
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar clases: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Mensajes.Error(ex, "Error al cargar la clase");
             }
         }
 
@@ -80,28 +81,29 @@ namespace SistemaGym.Formularios
                     string.IsNullOrWhiteSpace(txtDiasSemana.Text) ||
                     cmbEntrenador.SelectedIndex == -1)
                 {
-                    MessageBox.Show("Todos los campos son obligatorios y debe seleccionar un entrenador.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Mensajes.Validacion("Todos los campos son obligatorios y debe seleccionar un entrenador.");
                     return;
                 }
 
                 // 2. VALIDACIÓN EXTRA: Bloquear el "0" literal en Horario y Días
                 if (txtHorario.Text.Trim() == "0" || txtDiasSemana.Text.Trim() == "0")
                 {
-                    MessageBox.Show("El horario y los días de la semana no pueden ser simplemente '0'. Por favor, ingrese un formato válido (Ej: '19:00' o 'Lunes y Miércoles').", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Mensajes.Validacion("Por favor ingrese un horario válido (Ej: '08:00' o '19:00').");
                     return;
                 }
 
                 // 3. VALIDACIÓN EXTRA: Controlar que el horario no sea ridículamente corto
-                if (txtHorario.Text.Trim().Length < 4)
+                if (!TimeSpan.TryParse(txtHorario.Text.Trim(), out _))
                 {
-                    MessageBox.Show("Por favor, ingrese un horario válido (Ej: '08:00' o '19:00').", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Mensajes.Validacion("Ingrese un horario válido en formato HH:MM (Ej: 08:00 o 19:30).");
+                    txtHorario.Focus();
                     return;
                 }
 
                 // 4. VALIDACIÓN: Regla del negocio (Cupo estrictamente mayor a 0)
                 if (!int.TryParse(txtCupo.Text.Trim(), out int cupo) || cupo <= 0)
                 {
-                    MessageBox.Show("El cupo máximo debe ser un número entero mayor a 0.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Mensajes.Validacion("El cupo máximo debe ser un número entero mayor a 0.");
                     return;
                 }
 
@@ -126,7 +128,7 @@ namespace SistemaGym.Formularios
 
                 if (exito)
                 {
-                    MessageBox.Show("¡Clase registrada con éxito!", "Sistema Gym", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Mensajes.Exito("¡Clase registrada con éxito!");
                     LimpiarFormulario();
                     CargarGrilla(); // Refrescar tabla
                 }
@@ -169,13 +171,13 @@ namespace SistemaGym.Formularios
                 int idClase = Convert.ToInt32(dgvClases.CurrentRow.Cells["IdClase"].Value);
                 string nombre = dgvClases.CurrentRow.Cells["NombreClase"].Value.ToString();
 
-                DialogResult resultado = MessageBox.Show($"¿Desea cancelar y dar de baja la clase de {nombre}?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult resultado = Mensajes.Confirmar($"¿Desea cancelar y dar de baja la clase de {nombre}?");
 
                 if (resultado == DialogResult.Yes)
                 {
                     if (claseDAO.Desactivar(idClase))
                     {
-                        MessageBox.Show("Clase dada de baja correctamente.", "Sistema Gym", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Mensajes.Exito("Clase dada de baja correctamente.");
                         CargarGrilla(); // <-- Desaparece de la tabla
                     }
                 }

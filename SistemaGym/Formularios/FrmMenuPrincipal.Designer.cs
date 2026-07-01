@@ -135,6 +135,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FrmMenuPrincipal";
             Text = "Sistema de Gestión de Gimnasio";
+            FormClosed += FrmMenuPrincipal_FormClosed;
             ResumeLayout(false);
         }
 

@@ -8,7 +8,7 @@ namespace SistemaGym.Conexion
     public class Conexion
     {
         private readonly string connectionString =
-            @"Server=DESKTOP-JA5165O\SQLEXPRESS01;
+            @"Server=.\SQLEXPRESS01;
               Database=GymDB;
               Trusted_Connection=True;
               TrustServerCertificate=True;";

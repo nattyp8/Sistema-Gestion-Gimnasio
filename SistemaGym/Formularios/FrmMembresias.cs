@@ -1,8 +1,9 @@
-﻿using System;
+﻿using SistemaGym.DAO;
+using SistemaGym.Entidades;
+using SistemaGym.Utilidades;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using SistemaGym.DAO;
-using SistemaGym.Entidades;
 
 namespace SistemaGym.Formularios
 {
@@ -46,20 +47,20 @@ namespace SistemaGym.Formularios
                     string.IsNullOrWhiteSpace(txtDuracion.Text) ||
                     string.IsNullOrWhiteSpace(txtPrecio.Text))
                 {
-                    MessageBox.Show("Todos los campos son obligatorios.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Mensajes.Validacion("Todos los campos son obligatorios.");
                     return;
                 }
 
                 // 2. VALIDACIÓN: Convertir datos y verificar reglas del negocio
                 if (!int.TryParse(txtDuracion.Text.Trim(), out int duracion) || duracion < 1)
                 {
-                    MessageBox.Show("La duración debe ser un número entero mayor o igual a 1 día.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Mensajes.Validacion("La duración debe ser un número entero mayor o igual a 1 día.");
                     return;
                 }
 
                 if (!decimal.TryParse(txtPrecio.Text.Trim(), out decimal precio) || precio < 0)
                 {
-                    MessageBox.Show("El precio no puede ser un número negativo.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Mensajes.Validacion("El precio no puede ser un número negativo.");
                     return;
                 }
 
@@ -77,7 +78,7 @@ namespace SistemaGym.Formularios
 
                 if (exito)
                 {
-                    MessageBox.Show("¡Membresía registrada con éxito!", "Sistema Gym", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Mensajes.Exito("¡Membresía registrada con éxito!");
                     LimpiarFormulario();
                     CargarGrilla(); // Actualiza la tablita al instante
                 }
@@ -119,13 +120,12 @@ namespace SistemaGym.Formularios
                 int idMembresia = Convert.ToInt32(dgvMembresias.CurrentRow.Cells["IdMembresia"].Value);
                 string nombre = dgvMembresias.CurrentRow.Cells["Nombre"].Value.ToString();
 
-                DialogResult resultado = MessageBox.Show($"¿Desea desactivar el plan {nombre}?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
+                DialogResult resultado = Mensajes.Confirmar($"¿Desea desactivar el plan {nombre}?");
                 if (resultado == DialogResult.Yes)
                 {
                     if (membresiaDAO.Desactivar(idMembresia))
                     {
-                        MessageBox.Show("Membresía desactivada.", "Sistema Gym", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Mensajes.Exito("Membresía desactivada.");
                         CargarGrilla(); // <-- Desaparece visualmente
                     }
                 }

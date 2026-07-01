@@ -1,12 +1,12 @@
-﻿using Dapper;
-using Microsoft.Data.SqlClient;
-using SistemaGym.Conexion;
-using SistemaGym.Entidades;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Controls;
+using Dapper;
+using Microsoft.Data.SqlClient;
+using SistemaGym.Conexion;
+using SistemaGym.Entidades;
+using System.Windows.Forms;
 
 namespace SistemaGym.DAO
 {
@@ -18,8 +18,9 @@ namespace SistemaGym.DAO
         {
             using (SqlConnection conn = conexion.ObtenerConexion())
             {
-                string sql = @"INSERT INTO Pagos (IdSocio, IdMembresia, Monto, FechaPago, Estado) 
-                               VALUES (@IdSocio, @IdMembresia, @Monto, @FechaPago, @Estado)";
+                // ⚡ CORREGIDO: Se añade 'MetodoPago' en las columnas y el @parámetro de Dapper
+                string sql = @"INSERT INTO Pagos (IdSocio, IdMembresia, Monto, FechaPago, MetodoPago, Estado) 
+                               VALUES (@IdSocio, @IdMembresia, @Monto, @FechaPago, @MetodoPago, @Estado)";
 
                 int filasAfectadas = conn.Execute(sql, pago);
                 if (filasAfectadas > 0)
@@ -51,43 +52,49 @@ namespace SistemaGym.DAO
                     writer.WriteLine($"Fecha Emisión: {pago.FechaPago}");
                     writer.WriteLine($"Socio:         {nombreSocio}");
                     writer.WriteLine($"Plan:          {nombreMembresia}");
+                    writer.WriteLine($"Forma de Pago: {pago.MetodoPago}"); // ⚡ ¡Añadido al ticket!
                     writer.WriteLine("----------------------------------------");
-                    writer.WriteLine($"TOTAL PAGADO:  GS{pago.Monto:N0}");
+                    writer.WriteLine($"TOTAL PAGADO:  GS {pago.Monto:N0}");
                     writer.WriteLine("----------------------------------------");
                     writer.WriteLine("   ¡Gracias por entrenar con nosotros!  ");
                     writer.WriteLine("========================================");
                 }
             }
-            catch (Exception) { /* Silencioso */ }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "El pago fue registrado, pero no se pudo generar el comprobante TXT.\n\nDetalle: " + ex.Message,
+                    "Aviso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
         }
 
         public List<Pago> ListarPagos()
         {
             using (SqlConnection conn = conexion.ObtenerConexion())
             {
-                string sql = @"SELECT p.IdPago, p.IdSocio, s.Nombre AS NombreSocio, 
+                // ⚡ CORREGIDO: Añadimos 'p.MetodoPago' y unificamos el Nombre + Apellido del Socio
+                string sql = @"SELECT p.IdPago, p.IdSocio, s.Nombre + ' ' + s.Apellido AS NombreSocio, 
                                       p.IdMembresia, m.Nombre AS NombreMembresia, 
-                                      p.Monto, p.FechaPago, p.Estado 
+                                      p.Monto, p.FechaPago, p.MetodoPago, p.Estado 
                                FROM Pagos p
                                INNER JOIN Socios s ON p.IdSocio = s.IdSocio
                                INNER JOIN Membresias m ON p.IdMembresia = m.IdMembresia
                                WHERE p.Estado = 1
-                               ORDER BY IdPago DESC";
+                               ORDER BY p.IdPago DESC";
 
                 return conn.Query<Pago>(sql).ToList();
             }
         }
 
-        // Método para verificar si el socio ya pagó este plan recientemente
         public bool ExistePagoActivo(int idSocio, int idMembresia)
         {
             using (SqlConnection conn = conexion.ObtenerConexion())
             {
-                // Traemos la duración en días de esa membresía para saber cuánto debe durar
                 string sqlDuracion = "SELECT DuracionDias FROM Membresias WHERE IdMembresia = @IdMembresia";
                 int diasDuracion = conn.ExecuteScalar<int>(sqlDuracion, new { IdMembresia = idMembresia });
 
-                // Buscamos si hay algún pago de este socio para este plan en ese rango de días
                 string sqlCheck = @"SELECT COUNT(1) 
                             FROM Pagos 
                             WHERE IdSocio = @IdSocio 
@@ -97,24 +104,41 @@ namespace SistemaGym.DAO
 
                 int pagosRecientes = conn.ExecuteScalar<int>(sqlCheck, new { IdSocio = idSocio, IdMembresia = idMembresia, Dias = diasDuracion });
 
-                return pagosRecientes > 0; // Retorna true si ya pagó hace menos de los días que dura el plan
+                return pagosRecientes > 0;
             }
         }
 
-        // Verifica si el socio posee un pago activo dentro de los últimos 30 días
         public bool TieneMembresiaVigente(int idSocio)
         {
             using (SqlConnection conn = conexion.ObtenerConexion())
             {
-                // Contamos si existen registros de pago activos para este ID en los últimos 30 días
                 string sql = @"SELECT COUNT(1) 
-                       FROM Pagos 
-                       WHERE IdSocio = @IdSocio 
-                       AND Estado = 1 
-                       AND DATEDIFF(day, FechaPago, GETDATE()) < 30";
+               FROM Pagos p
+               INNER JOIN Membresias m ON p.IdMembresia = m.IdMembresia
+               WHERE p.IdSocio = @IdSocio 
+               AND p.Estado = 1 
+               AND DATEDIFF(day, p.FechaPago, GETDATE()) < m.DuracionDias";
 
                 int pagosActivos = conn.ExecuteScalar<int>(sql, new { IdSocio = idSocio });
-                return pagosActivos > 0; // Retorna true si tiene un pago vigente, false si venció o no pagó
+                return pagosActivos > 0;
+            }
+        }
+
+        public List<Pago> BuscarPagosPorSocio(string texto)
+        {
+            using (SqlConnection conn = conexion.ObtenerConexion())
+            {
+                // ⚡ CORREGIDO: Añadimos 'p.MetodoPago' e incluimos los IDs ocultos para que el mapeo sea idéntico
+                string sql = @"SELECT p.IdPago, p.IdSocio, s.Nombre + ' ' + s.Apellido AS NombreSocio, 
+                                      p.IdMembresia, m.Nombre AS NombreMembresia, 
+                                      p.Monto, p.FechaPago, p.MetodoPago, p.Estado 
+                               FROM Pagos p
+                               INNER JOIN Socios s ON p.IdSocio = s.IdSocio
+                               INNER JOIN Membresias m ON p.IdMembresia = m.IdMembresia
+                               WHERE p.Estado = 1 AND (s.Nombre LIKE @Texto OR s.Apellido LIKE @Texto)
+                               ORDER BY p.IdPago DESC";
+
+                return conn.Query<Pago>(sql, new { Texto = "%" + texto + "%" }).ToList();
             }
         }
     }

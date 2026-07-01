@@ -42,13 +42,15 @@
             btnGuardar = new Button();
             dgvEntrenadores = new DataGridView();
             btnDesactivar = new Button();
+            txtCedula = new TextBox();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvEntrenadores).BeginInit();
             SuspendLayout();
             // 
             // lblNombre
             // 
             lblNombre.AutoSize = true;
-            lblNombre.Location = new Point(233, 171);
+            lblNombre.Location = new Point(107, 174);
             lblNombre.Name = "lblNombre";
             lblNombre.Size = new Size(59, 19);
             lblNombre.TabIndex = 0;
@@ -56,7 +58,7 @@
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(348, 171);
+            txtNombre.Location = new Point(222, 174);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(100, 26);
             txtNombre.TabIndex = 1;
@@ -81,7 +83,7 @@
             // 
             // txtTelefono
             // 
-            txtTelefono.Location = new Point(348, 284);
+            txtTelefono.Location = new Point(487, 243);
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(100, 26);
             txtTelefono.TabIndex = 5;
@@ -89,7 +91,7 @@
             // lblEspecialidad
             // 
             lblEspecialidad.AutoSize = true;
-            lblEspecialidad.Location = new Point(233, 225);
+            lblEspecialidad.Location = new Point(107, 228);
             lblEspecialidad.Name = "lblEspecialidad";
             lblEspecialidad.Size = new Size(82, 19);
             lblEspecialidad.TabIndex = 4;
@@ -98,7 +100,7 @@
             // lblTelefono
             // 
             lblTelefono.AutoSize = true;
-            lblTelefono.Location = new Point(233, 284);
+            lblTelefono.Location = new Point(372, 243);
             lblTelefono.Name = "lblTelefono";
             lblTelefono.Size = new Size(60, 19);
             lblTelefono.TabIndex = 6;
@@ -106,7 +108,7 @@
             // 
             // txtEspecialidad
             // 
-            txtEspecialidad.Location = new Point(348, 222);
+            txtEspecialidad.Location = new Point(222, 225);
             txtEspecialidad.Name = "txtEspecialidad";
             txtEspecialidad.Size = new Size(100, 26);
             txtEspecialidad.TabIndex = 9;
@@ -156,11 +158,29 @@
             btnDesactivar.UseVisualStyleBackColor = true;
             btnDesactivar.Click += btnDesactivar_Click;
             // 
+            // txtCedula
+            // 
+            txtCedula.Location = new Point(487, 174);
+            txtCedula.Name = "txtCedula";
+            txtCedula.Size = new Size(100, 26);
+            txtCedula.TabIndex = 16;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(372, 174);
+            label1.Name = "label1";
+            label1.Size = new Size(51, 19);
+            label1.TabIndex = 15;
+            label1.Text = "Cedula";
+            // 
             // FrmEntrenadores
             // 
             AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(txtCedula);
+            Controls.Add(label1);
             Controls.Add(btnDesactivar);
             Controls.Add(dgvEntrenadores);
             Controls.Add(btnGuardar);
@@ -197,5 +217,7 @@
         private Button btnGuardar;
         private DataGridView dgvEntrenadores;
         private Button btnDesactivar;
+        private TextBox txtCedula;
+        private Label label1;
     }
 }

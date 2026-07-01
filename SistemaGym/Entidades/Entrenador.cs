@@ -10,8 +10,10 @@ namespace SistemaGym.Entidades
         public int IdEntrenador { get; set; }
         public string Nombre { get; set; }
         public string Especialidad { get; set; }
-        public string Turno { get; set; } // Lo guardaremos como texto en la BD para facilitar el listado
+        public Turno Turno { get; set; } 
         public string Telefono { get; set; }
         public bool Estado { get; set; }
+
+        public string Cedula { get; set; }
     }
 }

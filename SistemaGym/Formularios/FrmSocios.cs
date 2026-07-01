@@ -1,8 +1,9 @@
-﻿using System;
+﻿using SistemaGym.DAO;
+using SistemaGym.Entidades;
+using SistemaGym.Utilidades;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using SistemaGym.DAO;
-using SistemaGym.Entidades;
 
 namespace SistemaGym.Formularios
 {
@@ -34,7 +35,7 @@ namespace SistemaGym.Formularios
                     string.IsNullOrWhiteSpace(txtCedula.Text) ||
                     string.IsNullOrWhiteSpace(txtTelefono.Text))
                 {
-                    MessageBox.Show("Los campos Nombre, Apellido, Cédula y Teléfono son obligatorios.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Mensajes.Validacion("Los campos Nombre, Apellido, Cédula y Teléfono son obligatorios.");
                     return;
                 }
 
@@ -55,13 +56,13 @@ namespace SistemaGym.Formularios
 
                 if (exito)
                 {
-                    MessageBox.Show("¡Socio registrado con éxito!", "Sistema Gym", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Mensajes.Exito("¡Socio registrado con éxito!");
                     LimpiarFormulario();
-                    CargarGrilla(); // Refresca la tabla automáticamente
+                    CargarGrilla(); 
                 }
                 else
                 {
-                    MessageBox.Show("No se pudo registrar el socio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Mensajes.Aviso("No se pudo registrar el socio.");
                 }
             }
             catch (Exception ex)
@@ -132,7 +133,7 @@ namespace SistemaGym.Formularios
 
                     if (exito)
                     {
-                        MessageBox.Show("Socio desactivado con éxito.", "Sistema Gym", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Mensajes.Exito("Socio desactivado con éxito.");
                         CargarGrilla(); // Refrescamos la tabla para que desaparezca
                     }
                     else

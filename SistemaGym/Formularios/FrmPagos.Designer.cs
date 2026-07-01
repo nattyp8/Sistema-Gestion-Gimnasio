@@ -43,13 +43,14 @@
             label1 = new Label();
             label2 = new Label();
             txtObservacion = new TextBox();
+            txtBuscar = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvPagos).BeginInit();
             SuspendLayout();
             // 
             // lblMonto
             // 
             lblMonto.AutoSize = true;
-            lblMonto.Location = new Point(180, 184);
+            lblMonto.Location = new Point(185, 266);
             lblMonto.Name = "lblMonto";
             lblMonto.Size = new Size(54, 19);
             lblMonto.TabIndex = 0;
@@ -57,7 +58,7 @@
             // 
             // txtMonto
             // 
-            txtMonto.Location = new Point(292, 181);
+            txtMonto.Location = new Point(297, 263);
             txtMonto.Name = "txtMonto";
             txtMonto.Size = new Size(100, 26);
             txtMonto.TabIndex = 1;
@@ -65,7 +66,7 @@
             // lblMembresia
             // 
             lblMembresia.AutoSize = true;
-            lblMembresia.Location = new Point(180, 237);
+            lblMembresia.Location = new Point(185, 319);
             lblMembresia.Name = "lblMembresia";
             lblMembresia.Size = new Size(77, 19);
             lblMembresia.TabIndex = 2;
@@ -74,7 +75,7 @@
             // lblSocio
             // 
             lblSocio.AutoSize = true;
-            lblSocio.Location = new Point(180, 289);
+            lblSocio.Location = new Point(185, 371);
             lblSocio.Name = "lblSocio";
             lblSocio.Size = new Size(41, 19);
             lblSocio.TabIndex = 3;
@@ -83,7 +84,7 @@
             // cmbMembresia
             // 
             cmbMembresia.FormattingEnabled = true;
-            cmbMembresia.Location = new Point(292, 229);
+            cmbMembresia.Location = new Point(297, 311);
             cmbMembresia.Name = "cmbMembresia";
             cmbMembresia.Size = new Size(121, 27);
             cmbMembresia.TabIndex = 4;
@@ -92,7 +93,7 @@
             // cmbSocio
             // 
             cmbSocio.FormattingEnabled = true;
-            cmbSocio.Location = new Point(292, 281);
+            cmbSocio.Location = new Point(297, 363);
             cmbSocio.Name = "cmbSocio";
             cmbSocio.Size = new Size(121, 27);
             cmbSocio.TabIndex = 5;
@@ -100,14 +101,14 @@
             // dgvPagos
             // 
             dgvPagos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvPagos.Location = new Point(175, 28);
+            dgvPagos.Location = new Point(185, 103);
             dgvPagos.Name = "dgvPagos";
             dgvPagos.Size = new Size(423, 129);
             dgvPagos.TabIndex = 6;
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(150, 389);
+            btnGuardar.Location = new Point(155, 471);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(75, 23);
             btnGuardar.TabIndex = 7;
@@ -117,7 +118,7 @@
             // 
             // btnAnular
             // 
-            btnAnular.Location = new Point(323, 389);
+            btnAnular.Location = new Point(328, 471);
             btnAnular.Name = "btnAnular";
             btnAnular.Size = new Size(75, 23);
             btnAnular.TabIndex = 8;
@@ -127,7 +128,7 @@
             // 
             // btnCerrar
             // 
-            btnCerrar.Location = new Point(492, 389);
+            btnCerrar.Location = new Point(497, 471);
             btnCerrar.Name = "btnCerrar";
             btnCerrar.Size = new Size(75, 23);
             btnCerrar.TabIndex = 9;
@@ -138,7 +139,7 @@
             // cmbMetodoPago
             // 
             cmbMetodoPago.FormattingEnabled = true;
-            cmbMetodoPago.Location = new Point(570, 229);
+            cmbMetodoPago.Location = new Point(575, 311);
             cmbMetodoPago.Name = "cmbMetodoPago";
             cmbMetodoPago.Size = new Size(121, 27);
             cmbMetodoPago.TabIndex = 11;
@@ -146,7 +147,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(449, 232);
+            label1.Location = new Point(454, 314);
             label1.Name = "label1";
             label1.Size = new Size(112, 19);
             label1.TabIndex = 10;
@@ -155,7 +156,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(449, 289);
+            label2.Location = new Point(454, 371);
             label2.Name = "label2";
             label2.Size = new Size(89, 19);
             label2.TabIndex = 12;
@@ -163,16 +164,25 @@
             // 
             // txtObservacion
             // 
-            txtObservacion.Location = new Point(570, 282);
+            txtObservacion.Location = new Point(575, 364);
             txtObservacion.Name = "txtObservacion";
             txtObservacion.Size = new Size(121, 26);
             txtObservacion.TabIndex = 13;
+            // 
+            // txtBuscar
+            // 
+            txtBuscar.Location = new Point(286, 44);
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.Size = new Size(217, 26);
+            txtBuscar.TabIndex = 14;
+            txtBuscar.TextChanged += txtBuscar_TextChanged;
             // 
             // FrmPagos
             // 
             AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 521);
+            Controls.Add(txtBuscar);
             Controls.Add(txtObservacion);
             Controls.Add(label2);
             Controls.Add(cmbMetodoPago);
@@ -211,5 +221,6 @@
         private Label label1;
         private Label label2;
         private TextBox txtObservacion;
+        private TextBox txtBuscar;
     }
 }

@@ -26,7 +26,7 @@ namespace SistemaGym.DAO
                     string hashBaseDatos = usuarioEncontrado.Contrasena.Trim();
                     string clavePlanaIngresada = contrasena.Trim();
 
-                    if (BCrypt.Net.BCrypt.Verify(clavePlanaIngresada, hashBaseDatos) || clavePlanaIngresada == "admin123")
+                    if (BCrypt.Net.BCrypt.Verify(clavePlanaIngresada, hashBaseDatos)) //|| clavePlanaIngresada == "admin123")
                     {
                         return usuarioEncontrado;
                     }

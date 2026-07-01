@@ -62,5 +62,10 @@ namespace SistemaGym.Formularios
             FrmReportes ventanaReportes = new FrmReportes();
             ventanaReportes.ShowDialog();
         }
+
+        private void FrmMenuPrincipal_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
